@@ -1,85 +1,41 @@
-Project Summary
-<<<<<<< HEAD
+# DestinationApi Project Documentation
 
-Key Commands Start: docker-compose up -d
-Stop: docker-compose down
+## 1. Quick Start Commands
+- **Start Project:** `docker-compose up -d`
+- **Stop Project:** `docker-compose down`
+- **Enter Container:** `docker exec -it symfony_app bash`
 
-=======
-1. Key Commands
-Start: docker-compose up -d
+## 2. Database & Entity Management
+- **Create DB:** `docker exec symfony_app php bin/console doctrine:database:create`
+- **Run Migrations:** `docker exec symfony_app php bin/console doctrine:migrations:migrate`
+- **Create/Update Entity:** `docker exec symfony_app php bin/console make:entity DestinationApi`
+  `docker exec symfony_app php bin/console make:migration`
+  `docker exec symfony_app php bin/console doctrine:migrations:migrate`
 
-Stop: docker-compose down
+## 3. Configuration
+- **.env DB Path:** `DATABASE_URL="mysql://root:root@db:3306/destination_db?serverVersion=8.0.32&charset=utf8mb4"`
+- **Required Packages:** `composer require symfony/validator symfony/serializer symfony/maker-bundle`
 
+## 4. Entity Structure (DestinationApi)
+- **name:** String (255), required.
+- **activities:** JSON, required.
+- **average_cost:** Float, required, must be Positive.
+- **best_travel_months:** JSON, required.
 
->>>>>>> e01dc4d34a0626271dea6aafeea2ec001d2fd1e5
-Create DB: docker exec symfony_app php bin/console doctrine:database:create
+## 5. API Endpoints
+- **POST /destinations:** Create destination
+- **GET /destinations:** List (supports ?page=1&limit=10)
+- **GET /destinations/{id}:** Get single entry
+- **PUT/PATCH /destinations/{id}:** Update entry
+- **DELETE /destinations/{id}:** Remove entry
+- **GET /destinations/search:** Filtered search 
+  - Params: `page`, `limit`, `maxBudget`, `activities`, `travelMonth`
+  - Example: `/destinations/search?maxBudget=200&activities=sport&travelMonth=march`
 
-Migrate: docker exec symfony_app php bin/console doctrine:migrations:migrate
-
-<<<<<<< HEAD
-docker exec -it symfony_app php bin/console make:entity DestinationApi docker exec symfony_app php bin/console make:migration docker exec symfony_app php bin/console doctrine:migrations:migrate
-
-Enter App: docker exec -it symfony_app bash
-
-the .ENV database Path: DATABASE_URL="mysql://root:root@db:3306/destination_db?serverVersion=8.0.32&charset=utf8mb4" Entity: DestinationApi: name: String (255 chars), required. activities: JSON array, required. average_cost: Float, required, must be Positive. best_travel_months: JSON array, required.
-
-• POST /destinations – Create a new destination it take to valu for Pagination it is optional page, limit • GET /destinations – List all destinations localhost:8000/destinations?page=1&limit=10 • GET /destinations/{id} – Get a single destination localhost:8000/destinations/3 • PUT, PATCH /destinations/{id} – Update a destination localhost:8000/destinations/3 • DELETE /destinations/{id} – Delete a destination localhost:8000/destinations/3 GET /destinations/search for searching and it support Pagination is will take value and it is optional page, limit, maxBudget, activities, travelMonth
-localhost:8000/destinations?maxBudget=200&activities=sport&travelMonth=march&page=1&limit=10
-
-for more information checkout the docker-compose.yml and DockerFile
-
-for sending data to to the POST END POINT { "name": "Köln", "activities": [ "Cricket", "Football", "Basketball" ], "average_cost": 2000, "best_travel_months": [ "May", "June", "July", "August", "September" ] } COMPOSER PACKEG symfony/validator symfony/serializer maker
-=======
-docker exec -it symfony_app php bin/console make:entity DestinationApi
-docker exec symfony_app php bin/console make:migration
-docker exec symfony_app php bin/console doctrine:migrations:migrate
-
-
-
-Enter App: docker exec -it symfony_app bash
-
-the .ENV database Path: DATABASE_URL="mysql://root:root@db:3306/destination_db?serverVersion=8.0.32&charset=utf8mb4"
-Entity: DestinationApi:
-name: String (255 chars), required.
-activities: JSON array, required.
-average_cost: Float, required, must be Positive.
-best_travel_months: JSON array, required.
-
-• POST /destinations – Create a new destination it take to valu for Pagination it is optional  page, limit
-• GET /destinations – List all destinations                   localhost:8000/destinations?page=1&limit=10
-• GET /destinations/{id} – Get a single destination            localhost:8000/destinations/3
-• PUT, PATCH /destinations/{id} – Update a destination         localhost:8000/destinations/3
-• DELETE /destinations/{id} – Delete a destination             localhost:8000/destinations/3
-  GET /destinations/search  for searching and it support Pagination is will take value and it is optional    page, limit, maxBudget, activities, travelMonth      
-  localhost:8000/destinations?maxBudget=200&activities=sport&travelMonth=march&page=1&limit=10
-
-  for more information checkout the docker-compose.yml and DockerFile    
-
-
-  for sending data to to the POST END POINT 
-  {
+## 6. Sample Request Body (JSON)
+{
   "name": "Köln",
-  "activities": [
-    "Cricket",
-    "Football",
-    "Basketball"
-  ],
+  "activities": ["Cricket", "Football", "Basketball"],
   "average_cost": 2000,
-  "best_travel_months": [
-    "May",
-    "June",
-    "July",
-    "August",
-    "September"
-  ]
+  "best_travel_months": ["May", "June", "July", "August", "September"]
 }
-COMPOSER PACKEG 
-symfony/validator
-symfony/serializer
-maker
-
-
-
-
-
->>>>>>> e01dc4d34a0626271dea6aafeea2ec001d2fd1e5
