@@ -13,6 +13,8 @@ docker exec -it symfony_app php bin/console make:entity DestinationApi
 docker exec symfony_app php bin/console make:migration
 docker exec symfony_app php bin/console doctrine:migrations:migrate
 
+
+
 Enter App: docker exec -it symfony_app bash
 
 the .ENV database Path: DATABASE_URL="mysql://root:root@db:3306/destination_db?serverVersion=8.0.32&charset=utf8mb4"
